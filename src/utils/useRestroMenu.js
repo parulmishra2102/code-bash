@@ -13,10 +13,10 @@ function useRestroMenu(resId) {
                     MENU_API+ resId
                  );
                  const json = await data.json();
-                console.log(
-                  json.data.cards[4].groupedCard.cardGroupMap.REGULAR,
-                "u"
-               );
+              //   console.log(
+              //     json.data.cards[4].groupedCard.cardGroupMap.REGULAR,
+              //   "u"
+              //  );
              setResInfo(json.data);
               }; 
   return resInfo

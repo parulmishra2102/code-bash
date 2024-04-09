@@ -3,6 +3,7 @@ import useOnlineStatus from "../utils/useOnlineStatus";
 // import dataVal from "../utils/mockData";
 import Restrauntcard from "./Restrauntcard";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 function Body() {
 
@@ -25,7 +26,7 @@ function Body() {
     setFilteredRestro( json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
   };
 
-
+// {console.log(filteredRestro,'gjj')}
   //conditional rendering
   // if(listOfRestraunt?.length===0){
   //   // return  <h1>loading</h1>
@@ -37,30 +38,32 @@ function Body() {
   ) : (
     <div className="body">
         {/* <div className='search'>Search</div> */}
-        <div className="filter">
-          <div className="search">
+        <div className="filter flex">
+          <div className=" search m-4 p-4">
             <input
               type="text"
-              className="searchBox"
+              className="border border-solid border-black"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)} />
 
             <button 
+            className="px-4 py-2 bg-green-100 m-4 rounded-lg"
             onClick={()=>{
-              debugger
               const filterRestraunt = listOfRestraunt.filter((res)=>{
                 
                 debugger
                  return res?.info.name.toLowerCase().includes(searchText.toLowerCase()) })
                  setFilteredRestro(filterRestraunt)
+                 console.log('kk',filteredRestro)
             }}
-            // {console.log(filterRestraunt,filterRestraunt)}
+          
 
             
             >Search</button>
         </div>
+        <div className="search m-4 p-4 flex items-center">
         <button
-          className="filter-btn"
+          className="px-4 py-2 bg-gray-100 rounded-lg"
           onClick={() => {
             debugger;
             const filteredList = listOfRestraunt.filter(
@@ -71,11 +74,15 @@ function Body() {
         >
           Top Rated
         </button>
-      </div><div className="res-container">
+        </div>
+        
+      </div><div className="flex flex-wrap">
           {/* {dataVal.map((item) => ( */}
           {filteredRestro.map((restraunt) => (
-            <Restrauntcard detail={restraunt} key={restraunt.parentId} />
-          ))}
+            <Link to={"/restraunt/" + restraunt.info.id} key={restraunt.info.id}>
+    <Restrauntcard detail={restraunt}  />
+    </Link>
+  ))}
           {/* <Restrauntcard food={'burger'} cuisine={'italian'} rating={"4.1"}/>
   <Restrauntcard food={'biriyani'} cuisine={"Mughalai"} rating={"4.4"}/>
   <Restrauntcard food={'pizza'} cuisine={"french"} rating={"4.8"}/>
